@@ -1,0 +1,104 @@
+{
+  "info": {
+    "name": "Warehouse Picking Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "orderId", "value": "1" },
+    { "key": "userId", "value": "picker-1" }
+  ],
+  "item": [
+    {
+      "name": "Claim Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-User-Id", "value": "{{userId}}" }
+        ],
+        "url": "{{baseUrl}}/orders/{{orderId}}/claim"
+      }
+    },
+    {
+      "name": "Release Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-User-Id", "value": "{{userId}}" }
+        ],
+        "url": "{{baseUrl}}/orders/{{orderId}}/release"
+      }
+    },
+    {
+      "name": "Scan Mobile SKU",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-User-Id", "value": "{{userId}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"mob101\"\n}"
+        },
+        "url": "{{baseUrl}}/orders/{{orderId}}/scan"
+      }
+    },
+    {
+      "name": "Scan Mobile Barcode",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-User-Id", "value": "{{userId}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"111222\"\n}"
+        },
+        "url": "{{baseUrl}}/orders/{{orderId}}/scan"
+      }
+    },
+    {
+      "name": "Wrong or Unknown Item",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-User-Id", "value": "{{userId}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"UNKNOWN-CODE\"\n}"
+        },
+        "url": "{{baseUrl}}/orders/{{orderId}}/scan"
+      }
+    },
+    {
+      "name": "Get Order",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/orders/{{orderId}}"
+      }
+    },
+    {
+      "name": "Retry Marketplace Report",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/orders/{{orderId}}/report/retry"
+      }
+    },
+    {
+      "name": "Claim Unpaid Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-User-Id", "value": "{{userId}}" }
+        ],
+        "url": "{{baseUrl}}/orders/2/claim"
+      }
+    }
+  ]
+}
